@@ -36,31 +36,96 @@
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
     
+
+
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    function searchForYears(century) {
+      const centuryLowerEnd = Math.trunc(century / 100) * 100;
+      const centuryHigherEnd = centuryLowerEnd + 99;
+      return inventors.filter( (item) => 
+        ( item.year >= centuryLowerEnd && item.year <= centuryHigherEnd )
+      );
+    }
+    console.log( searchForYears(1500) );
+  
+
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    function getFirstLastName() {
+      return inventors.map( (item) => [item.first, item.last] );
+    }
+    console.log( getFirstLastName() );
+
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    // [...array] used, cause sort would change original array.
+    function sortByBirthdateOldToYoung(array) {
+      return [...array].sort( (a, b) => (a.year - b.year) );
+    }
+    console.log( sortByBirthdateOldToYoung(inventors) );
+
+
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    function sumYears(array) {
+      return array.reduce( (acc, item) => (item.passed - item.year) );
+    }
+    console.log( sumYears(inventors) );
+
+
 
     // 5. Sort the inventors by years lived
+    function sortByLivedYears(array) {
+      return [...array].sort( (a, b) => ((a.passed - a.year) - (b.passed - b.year)));
+    }
+    console.log( sortByLivedYears(inventors) );
+
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    let boulevardList = [];
+    function createListOfBoulevards(boulevardName) {
+      const contains = boulevardName.includes("de", 0);
+      if (contains) {
+        boulevardList.push(boulevardName);
+      }
+    }
+    createListOfBoulevards( "Boulevards of Paris" );
+    createListOfBoulevards( "Boulevard de l'Amiral-Bruix" );
+    createListOfBoulevards( "Boulevard Soult" );
+    createListOfBoulevards( "Boulevard Lefebvre" );
+    createListOfBoulevards( "Boulevard de Strasbourg" );
+    createListOfBoulevards( "Boulevard Marguerite-de-Rochechouart" );
+    createListOfBoulevards( "Boulevard Hippolyte-Marquès" );
+    console.log( boulevardList );
+
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    function sortAlphabetically(array) {
+      return [...array].sort();
+    }
+    console.log( sortAlphabetically(people) );
+
+    
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    function countUniqueItems(array) {
+      return array.reduce((obj, value) => {
+        obj[value] = (obj[value] || 0) + 1;
+        return obj;
+      }, {});
+    }
+    console.log( countUniqueItems(data) );
   </script>
 </body>
 </html>
